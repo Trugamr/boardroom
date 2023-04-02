@@ -5,6 +5,7 @@ const serverEnvSchema = z.object({
   COOKIE_SECRET: z.string().nonempty(),
   STEAM_API_KEY: z.string().nonempty(),
   STEAM_CALLBACK_URL: z.string().url(),
+  DATABASE_URL: z.string().url(),
 })
 
 /**
