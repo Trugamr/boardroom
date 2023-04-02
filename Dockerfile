@@ -1,25 +1,31 @@
 FROM node:18-alpine as base
 
-RUN corepack enable
-
 #####
 
-FROM base as deps
+FROM base as development
 
 WORKDIR /app
 
-ADD package.json pnpm-lock.yaml ./
-RUN pnpm install
+ADD package.json package-lock.json ./
+ADD prisma ./prisma
+RUN npm install
 
 #####
 
-FROM base as production-deps
+FROM base as production
 
 WORKDIR /app
 
-COPY --from=deps /app/node_modules ./node_modules
-ADD package.json pnpm-lock.yaml ./
-RUN pnpm prune --prod
+COPY --from=development /app/node_modules ./node_modules
+ADD package.json package-lock.json ./
+RUN npm install --omit=dev
+# Clean Prisma non-used files https://github.com/prisma/prisma/issues/11577
+RUN rm -rf /app/node_modules/.cache/ \
+    rm -rf /app/node_modules/@prisma/engines/ \
+    rm -rf /app/node_modules/@prisma/engines-version \
+    rm -rf /app/node_modules/prisma
+# Pruning removes generated prisma client so we copy them back
+COPY --from=development /app/node_modules/.prisma ./node_modules/.prisma
 
 #####
 
@@ -29,9 +35,9 @@ ENV NODE_ENV production
 
 WORKDIR /app
 
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=development /app/node_modules ./node_modules
 ADD . .
-RUN pnpm build
+RUN npm run build
 
 ######
 
@@ -42,9 +48,9 @@ EXPOSE 3000
 
 WORKDIR /app
 
-COPY --from=production-deps /app/node_modules ./node_modules
+COPY --from=production /app/node_modules ./node_modules
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
 ADD . .
 
-CMD ["pnpm", "start"]
+CMD ["npm", "start"]
