@@ -14,8 +14,11 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.6
   react: ^18.2.0
   react-dom: ^18.2.0
+  remix-auth: ^3.4.0
+  remix-auth-steam: ^1.0.4
   tailwindcss: ^3.3.1
   typescript: ^4.8.4
+  zod: ^3.21.4
 
 dependencies:
   '@remix-run/node': 1.15.0
@@ -24,6 +27,9 @@ dependencies:
   isbot: 3.6.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  remix-auth: 3.4.0_@remix-run+react@1.15.0
+  remix-auth-steam: 1.0.4_@remix-run+react@1.15.0
+  zod: 3.21.4
 
 devDependencies:
   '@remix-run/dev': 1.15.0_@remix-run+serve@1.15.0
@@ -2270,6 +2276,10 @@ packages:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: true
 
+  /@types/steamapi/2.2.2:
+    resolution: {integrity: sha512-I64sxNOaTtp8/pFqhgz1niI8sIEgnRLv1xF8juq7nNRiyWiCWMm+bnwD4oo06nhzQH0xZt6pG0RQipmBWMFxPg==}
+    dev: false
+
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
@@ -2672,6 +2682,14 @@ packages:
     resolution: {integrity: sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==}
     engines: {node: '>=4'}
     dev: true
+
+  /axios/0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.15.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /axobject-query/3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
@@ -4128,6 +4146,16 @@ packages:
   /flatted/3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
+
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -5880,6 +5908,16 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
+  /openid/2.0.10:
+    resolution: {integrity: sha512-EFTQ61/OUVhCeq78Y3rBpdKSuvgb0lwkU8nN4QTdcv0afc5MT7e4IVuZwgkMsgE993dmhbIhkxHFP3iTVJXWmw==}
+    engines: {node: '>= 0.6.0'}
+    dependencies:
+      axios: 0.21.4
+      qs: 6.11.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /optionator/0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
@@ -6647,6 +6685,30 @@ packages:
       unified: 10.1.2
     dev: true
 
+  /remix-auth-steam/1.0.4_@remix-run+react@1.15.0:
+    resolution: {integrity: sha512-kYQmgWLPFJi8q8/uXJ/SOjM3DDf9VVAI49tBjiVkB4BzYDgsi+LM9d8VA7qUqTCrPOK1gC6YGfOixIpqsm8X9g==}
+    peerDependencies:
+      '@remix-run/server-runtime': ^1.0.0
+    dependencies:
+      '@types/steamapi': 2.2.2
+      openid: 2.0.10
+      remix-auth: 3.4.0_@remix-run+react@1.15.0
+      steamapi: 2.2.0
+    transitivePeerDependencies:
+      - '@remix-run/react'
+      - debug
+    dev: false
+
+  /remix-auth/3.4.0_@remix-run+react@1.15.0:
+    resolution: {integrity: sha512-VRliJo9VRAS4sSYgMjYbi7rYRixPWU2Tb8PFZb06OIj0nONK/1KRzHf2+Y6VGZeIacepLVgan6g2IUJjayE2rQ==}
+    peerDependencies:
+      '@remix-run/react': ^1.0.0
+      '@remix-run/server-runtime': ^1.0.0
+    dependencies:
+      '@remix-run/react': 1.15.0_biqbaboplfbrettd7655fr4n2y
+      uuid: 8.3.2
+    dev: false
+
   /require-like/0.1.2:
     resolution: {integrity: sha512-oyrU88skkMtDdauHDuKVrgR+zuItqr6/c//FXzvmxRGMexSDc6hNvJInGW3LL46n+8b50RykrvwSUIIQH2LQ5A==}
     dev: true
@@ -6946,6 +7008,17 @@ packages:
   /statuses/2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+
+  /steamapi/2.2.0:
+    resolution: {integrity: sha512-2UWklLzYQruuUC0a5AUgll1dU91/CWgiAhm/7y+rqc43kbBWereGTtmwo8wr6imjC64iV5893KChXghW0zK8Gg==}
+    dependencies:
+      steamid: 2.0.0
+    dev: false
+
+  /steamid/2.0.0:
+    resolution: {integrity: sha512-+BFJMbo+IxzyfovLR37E7APkaNfmrL3S+88T7wTMRHnQ6LBhzEawPnjfWNKM9eUL/dH45j+7vhSX4WaGXoa4/Q==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /stop-iteration-iterator/1.0.0:
     resolution: {integrity: sha512-iCGQj+0l0HOdZ2AEeBADlsRC+vsnDsZsbdSiH1yNSjcfKM7fdpCMfqAL/dwF5BLiw/XhRft/Wax6zQbhq2BcjQ==}
@@ -7500,6 +7573,11 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
+
   /uvu/0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
@@ -7761,6 +7839,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false
 
   /zwitch/2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

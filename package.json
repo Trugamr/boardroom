@@ -15,7 +15,10 @@
     "@remix-run/serve": "^1.15.0",
     "isbot": "^3.6.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix-auth": "^3.4.0",
+    "remix-auth-steam": "^1.0.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.15.0",
